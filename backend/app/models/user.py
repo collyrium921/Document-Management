@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, Column, Integer, String, Enum, DateTime
-# from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship
 from app.db.base import Base
 import enum
 from datetime import datetime
@@ -21,4 +21,4 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
-    # documents = relationship("Document", back_populates="owner") 
+    documents = relationship("Document", back_populates="owner") 
