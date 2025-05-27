@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { AuthModule } from './components/auth/auth.module';
+import { DocumentsModule } from './components/documents/documents.module';
 
 
 
@@ -31,6 +32,7 @@ import { AuthModule } from './components/auth/auth.module';
     AppRoutingModule,
 
     AuthModule,
+    DocumentsModule,
 
     MatToolbarModule,
     MatSidenavModule,
