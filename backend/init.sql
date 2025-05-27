@@ -23,6 +23,18 @@ CREATE TABLE IF NOT EXISTS documents (
     owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Create ingestion_logs table
+CREATE TABLE IF NOT EXISTS ingestion_logs (
+    id SERIAL PRIMARY KEY,
+    document_id INTEGER REFERENCES documents(id) ON DELETE CASCADE,
+    status VARCHAR(50) NOT NULL,
+    started_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    completed_at TIMESTAMP WITH TIME ZONE,
+    error_message TEXT
+);
+
+
 -- Create indexes
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_documents_owner ON documents(owner_id);
+CREATE INDEX IF NOT EXISTS idx_ingestion_logs_document ON ingestion_logs(document_id);
