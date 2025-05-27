@@ -17,6 +17,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { AppComponent } from './app.component';
 import { AuthModule } from './components/auth/auth.module';
 import { DocumentsModule } from './components/documents/documents.module';
+import { UsersModule } from './components/users/users.module';
+import { IngestionsModule } from './components/ingestions/ingestions.module';
 
 
 
@@ -33,6 +35,8 @@ import { DocumentsModule } from './components/documents/documents.module';
 
     AuthModule,
     DocumentsModule,
+    UsersModule,
+    IngestionsModule,
 
     MatToolbarModule,
     MatSidenavModule,
