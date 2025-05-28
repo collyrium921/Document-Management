@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserListComponent } from './user-list.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ApiService } from '../../../../core/services/api.service';
 import { of } from 'rxjs';
-import { UserRole } from '../../../../core/models/user.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { UserRole } from '../../../models/user.model';
+import { ApiService } from '../../../services/api.service';
 
 const dummyUsers = [
   { id: 1, full_name: 'Test User', email: 'test@example.com', role: UserRole.ADMIN, created_at: '', updated_at: '' }
