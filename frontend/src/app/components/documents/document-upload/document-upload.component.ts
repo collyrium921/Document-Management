@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DocumentService } from '../../../services/document.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-document-upload',
@@ -104,7 +105,8 @@ export class DocumentUploadComponent {
   constructor(
     private fb: FormBuilder,
     private documentService: DocumentService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.uploadForm = this.fb.group({
       title: ['', Validators.required],
@@ -129,10 +131,13 @@ export class DocumentUploadComponent {
         { title, description, file_type: fileType }
       ).subscribe({
         next: () => {
+          this._snackBar.open("Upload successful!", "Close", { duration: 3000 });
           this.router.navigate(['/documents']);
         },
         error: (error) => {
           console.error('Error uploading document:', error);
+          const errorMessage = error.error?.detail || "Upload failed. Please try again.";
+          this._snackBar.open(errorMessage, "Close", { duration: 5000 });
           // Handle error (show error message)
         }
       });

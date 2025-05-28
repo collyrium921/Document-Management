@@ -13,6 +13,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { AuthModule } from './components/auth/auth.module';
@@ -45,7 +46,8 @@ import { IngestionsModule } from './components/ingestions/ingestions.module';
     MatListModule,
     MatMenuModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   bootstrap:[AppComponent]
 })

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {  UserRole } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-edit',
@@ -90,7 +91,8 @@ export class UserEditComponent implements OnInit {
     private fb: FormBuilder,
     private userService:UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.userId = this.route.snapshot.params['id'];
     this.editForm = this.fb.group({
@@ -130,10 +132,13 @@ export class UserEditComponent implements OnInit {
         role
       }).subscribe({
         next: () => {
+          this._snackBar.open("Updated successfully!", "Close", { duration: 3000 });
           this.router.navigate(['/users']);
         },
         error: (error) => {
           console.error('Error updating user:', error);
+          const errorMessage = error.error?.detail || "Edit failed. Please try again.";
+          this._snackBar.open(errorMessage, "Close", { duration: 5000 });
           // Handle error (show error message)
         }
       });

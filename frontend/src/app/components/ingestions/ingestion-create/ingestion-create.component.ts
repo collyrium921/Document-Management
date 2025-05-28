@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IngestionService } from '../../../services/ingestion.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-ingestion-create',
@@ -113,7 +114,8 @@ export class IngestionCreateComponent {
   constructor(
     private fb: FormBuilder,
     private ingestionService: IngestionService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.createForm = this.fb.group({
       name: ['', Validators.required],
@@ -170,11 +172,14 @@ export class IngestionCreateComponent {
 
       this.ingestionService.triggerIngestion(formData).subscribe({
         next: () => {
+          this._snackBar.open("Upload successful!", "Close", { duration: 3000 });
           this.router.navigate(['/ingestions']);
         },
         error: (error) => {
           console.error('Error creating ingestion:', error);
           this.isSubmitting = false;
+          const errorMessage = error.error?.detail || "Upload failed. Please try again.";
+          this._snackBar.open(errorMessage, "Close", { duration: 5000 });
           // Handle error (show error message)
         }
       });

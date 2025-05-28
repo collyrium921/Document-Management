@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DocumentService } from '../../../services/document.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-document-edit',
   template: `
@@ -75,6 +76,14 @@ import { DocumentService } from '../../../services/document.service';
       gap: 16px;
       margin-top: 20px;
     }
+    .file-upload {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    input[type="file"] {
+      display: none;
+    }
   `]
 })
 export class DocumentEditComponent implements OnInit {
@@ -86,7 +95,8 @@ export class DocumentEditComponent implements OnInit {
     private fb: FormBuilder,
     private documentService: DocumentService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.documentId = this.route.snapshot.params['id'];
     this.editForm = this.fb.group({
@@ -132,12 +142,13 @@ export class DocumentEditComponent implements OnInit {
         file_type: fileType
       }, this.selectedFile).subscribe({
         next: () => {
+          this._snackBar.open("Successfully updated!", "Close", { duration: 3000 });
           this.router.navigate(['/documents']);
         },
         error: (error) => {
           console.error('Error updating document:', error);
-          // Handle error (show error message)
-        }
+          const errorMessage = error.error?.detail || "Login failed. Please try again.";
+          this._snackBar.open(errorMessage, "Close", { duration: 5000 });        }
       });
     }
   }
