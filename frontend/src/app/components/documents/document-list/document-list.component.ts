@@ -8,7 +8,7 @@ import { Document } from '../../../models/document.model';
   selector: 'app-document-list',
   template: `
     <div class="document-list-container">
-      <mat-card>
+      <mat-card class="table-wrapper">
         <mat-card-header>
           <mat-card-title class="primary">Documents</mat-card-title>
           <div class="spacer"></div>

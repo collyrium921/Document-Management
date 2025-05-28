@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from '../../../services/api.service';
+import { IngestionService } from '../../../services/ingestion.service';
 
 @Component({
   selector: 'app-ingestion-create',
@@ -112,7 +112,7 @@ export class IngestionCreateComponent {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
+    private ingestionService: IngestionService,
     private router: Router
   ) {
     this.createForm = this.fb.group({
@@ -168,7 +168,7 @@ export class IngestionCreateComponent {
         formData.append('file', this.selectedFile);
       }
 
-      this.apiService.post('/api/ingestion/trigger', formData).subscribe({
+      this.ingestionService.triggerIngestion(formData).subscribe({
         next: () => {
           this.router.navigate(['/ingestions']);
         },

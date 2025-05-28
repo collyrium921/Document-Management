@@ -17,8 +17,8 @@ export class IngestionService {
     return this.apiService.get<Ingestion>(`/api/ingestion/${id}`);
   }
 
-  triggerIngestion(documentId: number): Observable<Ingestion> {
-    return this.apiService.post<Ingestion>(`/api/ingestion/trigger`, { document_id: documentId });
+  triggerIngestion(data: FormData): Observable<Ingestion> {
+    return this.apiService.post<Ingestion>(`/api/ingestion/trigger`, data);
   }
 
   getIngestionStatus(id: number): Observable<IngestionStatus> {

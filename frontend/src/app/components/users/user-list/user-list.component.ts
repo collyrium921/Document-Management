@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ApiService } from '../../../services/api.service';
 import { User } from '../../../models/user.model';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-user-list',
   template: `
     <div class="user-list-container">
-      <mat-card>
+      <mat-card class="table-wrapper">
         <mat-card-header>
           <mat-card-title class="primary">Users</mat-card-title>
         </mat-card-header>
@@ -70,8 +69,7 @@ export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['fullName', 'email', 'role', 'createdAt', 'actions'];
 
   constructor(
-    private apiService: ApiService,
-    private router: Router
+    private userService:UserService
   ) {}
 
   ngOnInit(): void {
@@ -79,7 +77,7 @@ export class UserListComponent implements OnInit {
   }
 
   loadUsers(): void {
-    this.apiService.get<User[]>('/api/users/').subscribe({
+    this.userService.getUsers().subscribe({
       next: (users) => {
         this.users = users;
       },

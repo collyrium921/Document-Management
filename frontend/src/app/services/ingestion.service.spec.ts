@@ -58,13 +58,13 @@ describe('IngestionService', () => {
   });
 
   it('should trigger ingestion', () => {
-    service.triggerIngestion(1).subscribe((ingestion: Ingestion) => {
+    const formData = new FormData();
+    service.triggerIngestion(formData).subscribe((ingestion: Ingestion) => {
       expect(ingestion).toEqual(mockIngestion);
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/api/ingestion/trigger`);
     expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ document_id: 1 });
     req.flush(mockIngestion);
   });
 

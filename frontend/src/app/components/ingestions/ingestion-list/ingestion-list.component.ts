@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Ingestion } from '../../../models/ingestion.model';
-import { ApiService } from '../../../services/api.service';
+import { IngestionService } from '../../../services/ingestion.service';
 
 @Component({
   selector: 'app-ingestion-list',
   template: `
     <div class="ingestion-list-container">
-      <mat-card>
+      <mat-card class="table-wrapper">
         <mat-card-header>
           <mat-card-title class="primary">Ingestions</mat-card-title>
           <div class="header-actions">
@@ -32,7 +31,7 @@ import { ApiService } from '../../../services/api.service';
               <th mat-header-cell *matHeaderCellDef>Status</th>
               <td mat-cell *matCellDef="let ingestion">
                 <span [class]="'status-' + ingestion.status.toLowerCase()">
-                  {{ingestion.status}}
+                  {{ingestion.status | titlecase}}
                 </span>
               </td>
             </ng-container>
@@ -111,8 +110,7 @@ export class IngestionListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'documentId', 'status', 'startedAt', 'completedAt', 'errorMessage', 'actions'];
 
   constructor(
-    private apiService: ApiService,
-    private router: Router
+    private ingestionService: IngestionService
   ) {}
 
   ngOnInit(): void {
@@ -120,7 +118,7 @@ export class IngestionListComponent implements OnInit {
   }
 
   loadIngestions(): void {
-    this.apiService.get<Ingestion[]>('/api/ingestion').subscribe({
+    this.ingestionService.getIngestions().subscribe({
       next: (ingestions) => {
         this.ingestions = ingestions;
       },

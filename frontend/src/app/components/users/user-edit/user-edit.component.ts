@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../../../services/api.service';
-import { User, UserRole } from '../../../models/user.model';
+import {  UserRole } from '../../../models/user.model';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -88,7 +88,7 @@ export class UserEditComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
+    private userService:UserService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -105,7 +105,7 @@ export class UserEditComponent implements OnInit {
   }
 
   loadUser(): void {
-    this.apiService.get<User>(`/api/users/${this.userId}`).subscribe({
+    this.userService.getUser(this.userId).subscribe({
       next: (user) => {
         this.editForm.patchValue({
           full_name: user.full_name,
@@ -124,7 +124,7 @@ export class UserEditComponent implements OnInit {
     if (this.editForm.valid && this.editForm.dirty) {
       const { full_name, email, role } = this.editForm.value;
       
-      this.apiService.put<User>(`/api/users/${this.userId}`, {
+      this.userService.updateUser(this.userId, {
         full_name,
         email,
         role

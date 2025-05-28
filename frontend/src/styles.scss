@@ -20,6 +20,11 @@ html, body {
 .pointer{
   cursor: pointer;
 }
+
+mat-card.table-wrapper{
+  height: 78vh;
+}   
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -161,6 +166,10 @@ table.table-container{
 
 .mat-mdc-table thead{
   background-color:#fafafa !important;
+}
+
+span.mdc-list-item__content span{
+  display: flex;
 }
 
 /* Responsive design */
